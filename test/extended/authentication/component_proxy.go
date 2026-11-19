@@ -230,7 +230,7 @@ func testHotReloadCAFileChange(ctx context.Context, oc *exutil.CLI, cleanups *[]
 	o.Expect(err).NotTo(o.HaveOccurred())
 
 	g.By("Verifying trustedCA ConfigMap is synced to openshift-authentication namespace")
-	err = verifyTrustedCAConfigMapSynced(ctx, oc)
+	err = verifyTrustedCAConfigMapSynced(ctx, oc, "openshift-authentication")
 	o.Expect(err).NotTo(o.HaveOccurred())
 
 	logCutOff := time.Now()
@@ -452,7 +452,7 @@ func testOIDCIdPThroughComponentProxy(ctx context.Context, oc *exutil.CLI, kcSet
 
 	if withTrustedCA {
 		g.By("Waiting for trustedCA ConfigMap to be synced before registering IdP")
-		err = verifyTrustedCAConfigMapSynced(ctx, oc)
+		err = verifyTrustedCAConfigMapSynced(ctx, oc, "openshift-authentication")
 		o.Expect(err).NotTo(o.HaveOccurred())
 	}
 
